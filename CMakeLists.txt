@@ -46,6 +46,18 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /MP")    # MULTICORE BUILDS
 endif()
 
+# handle sysctl deprication
+include(CheckFunctionExists)
+
+check_function_exists(sysctl HAVE_SYSCTL)
+if (HAVE_SYSCTL)
+	add_definitions(-DHAVE_SYSCTL)
+endif(HAVE_SYSCTL)
+check_function_exists(sysconf HAVE_SYSCONF)
+if (HAVE_SYSCONF)
+	add_definitions(-DHAVE_SYSCONF)
+endif(HAVE_SYSCONF)
+
 #===============================================================================
 # 3RD PARTY DEPENDENCIES
 #===============================================================================

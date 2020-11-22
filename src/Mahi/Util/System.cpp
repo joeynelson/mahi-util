@@ -18,7 +18,13 @@
 #include <time.h>
 #include <unistd.h>
 #include <errno.h>
+#if HAVE_SYSCONF
+// <unistd.h> already included above
+#elif HAVE_SYSCTL
 #include <sys/sysctl.h>
+#else
+#error Either sysctl or sysconf is required for GetSystemInfo.
+#endif  // HAVE_SYSCTL
 #endif
 
 namespace mahi {
